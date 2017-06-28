@@ -1,22 +1,25 @@
 var passcode = ~~(Math.random() * 1000);
 var tries = 15;
-
-
-while(guess != passcode && tries > 0)
+var clueText = document.getElementById("clues")
+var button = document.getElementById("guess-button");
+var number = document.getElementById("guess-number");
+var attemptsText = document.getElementById("attempts");
+attemptsText.innerHTML = "Number of attempts left: " + tries;
+button.addEventListener("click", guessNumber);
+function guessNumber()
 {
-    console.log("You have " + tries + " guesses left")
-    console.log("Guess a number between 0 and 999");
-    var guess = prompt("Enter a number (0-999)");
+    attemptsText.innerHTML = "Number of attempts left: " + tries;
+    var guess = number.value;
     tries = tries - 1;
     if (guess == passcode)
     {
-        console.log("You win!");
+        document.body.innerHTML = "<h1>You win!</h1>";
     }
     if (tries == 0)
     {
-        console.log("You lose!");
+        document.body.innerHTML = "<h1>You lose!</h1>" + "<p>The number was " + passcode + "</p>";
     }else {
-        giveClue();
+        giveClue(guess);
     }
     if (guess == 123)
     {
@@ -38,16 +41,38 @@ while(guess != passcode && tries > 0)
     {
         alert ("Hey! Play by the rules!")
     }
+    if (guess == 314)
+    {
+        alert ("I prefer edible pie")
+    }
+    if (guess == 246)
+    {
+        alert ("Good job! You can count by twos!")
+    }
+    if (guess == 369)
+    {
+        alert ("Good job! You can count by threes!")
+    }
+    if (guess == 69)
+    {
+        alert ("Hey! Don't be so immature!")
+    }
+    if (guess == 13)
+    {
+        alert ("Computers don't believe in luck")
+    }
+    
 }
 
 
-function giveClue(){
+function giveClue(guess)
+    {
     if (guess < passcode)
     {
-        console.log("Go higher!");
+        clueText.innerHTML += "<li>" + guess + " is lower than the number!" + "</li>"
     }
     if (guess > passcode)
     {
-        console.log("Go lower!");
+        clueText.innerHTML += "<li>" + guess + " is higher than the number!" + "</li>"
     }
 }
