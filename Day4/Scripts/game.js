@@ -22,8 +22,13 @@ game.main = function()
     {
         game.update();
         renderer.draw();
-        window.requestAnimationFrame(game.main);
     }
+    else
+    {
+        hud.drawGameOver();
+    }
+        window.requestAnimationFrame(game.main);
+     
 
 };
 
@@ -51,7 +56,11 @@ game.update = function()
         if ( hazard.isTouching(player) )
         {
             game.isOver = true;
+            deathsound.play();
         }
     }
 };
 
+
+
+var deathsound = new Audio("Assets/Grunt_Sound.mp3");
